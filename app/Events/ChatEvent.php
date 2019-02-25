@@ -16,10 +16,13 @@ class ChatEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+
     public $user;
     /**
      * Create a new event instance.
      *
+     * @var $message
+     * @param User $user
      * @return void
      */
     public function __construct($message,User $user)

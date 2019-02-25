@@ -19,34 +19,48 @@ class ChatController extends Controller
         $this->middleware('auth');
     }
     
+    /**
+     * Show chat room
+     */
     public function chat()
     {
         return view('chat');
     }
 
+    /**
+     * Handle message sending
+     * 
+     * @param Illuminate\Http\Request $request
+     * @return void
+     */
     public function send(Request $request)
     {
         
         $user = User::find(Auth::id());
-        $this->saveToSession($request);
-        event(new ChatEvent($request->message,$user));
-    }
 
-    public function saveToSession(Request $request)
-    {
         session()->put('chat',$request->chat);
+
+        event(new ChatEvent($request->message, $user));
     }
 
+    /**
+     * Get old message from session
+     * 
+     * @return session
+     */
     public function getOldMessage()
     {
         return session('chat');
     }
 
+    /**
+     * Destroy message
+     * 
+     * @return void
+     */
     public function deleteSession()
     {
         session()->forget('chat');
     }
-
-
-    
+  
 }

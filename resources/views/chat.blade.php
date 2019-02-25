@@ -17,21 +17,23 @@
 <body>
     <div class="container">
         <div class="row" id="app">
-            <div class="offset-4 col-4 offset-sm-1 col-sm-10">
+            <div class="col-md-4 offset-md-4 col-sm-10 offset-sm-1">
                 <li class="list-group-item active"><span class="badge badge-pill badge-danger">@{{ numberOfUsers }}</span></li>
+
                 <div class="badge badge-pill badge-primary">@{{ typing }}</div>
                 <ul class="list-group" v-chat-scroll>
                 <message
                 v-for = "value,index in chat.message"
-                :key = "value.index"
+                :key = value.index
                 :color = chat.color[index]
                 :user = chat.user[index] 
-                :time = chat.time[index]
-                >
+                :time = chat.time[index]>
                     @{{ value }}
                 </message>
                 </ul>
-                <input type="text" class="form-control" placeholder="Type any message here!" v-model="message" @keyup.enter='send'>
+
+                <input type="text" class="form-control" placeholder="Type our message!" v-model="message">
+                <button v-bind:disabled="dis" type="button" class="form-control btn btn-success" v-on:click="send">Send</button>
             </div>
         </div>
     </div>
